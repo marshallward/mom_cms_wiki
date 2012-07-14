@@ -1,0 +1,82 @@
+===
+MOM
+===
+
+MOM (Modular Ocean Model) is an ocean climate model developed at GFDL, and is
+the ocean component of the ACCESS climate model system. The latest release of
+MOM is version 4.1 (or MOM4p1).
+
+Setting up the work environment
+===============================
+
+Creating an NCI account
+-----------------------
+
+Most CoE users should expect to run MOM on the NCI computers, such as vayu. To
+request an account, visit the `New User Application`_ page at NCI.
+
+Once your account has been created, you may need to connect your username to a
+particular project. 
+
+.. _New User Application:
+    https://nf.nci.org.au/accounts/forms/user_registration.php
+
+Working in the terminal shell
+-----------------------------
+
+Acquiring the source code
+-------------------------
+
+To acquire the latest version of the source code, create a directory in
+``/short/${PROJECT}/${USER}/`` and type the following:
+
+.. code:: bash
+    
+    $ svn co https://access-svn.nci.org.au/svn/mom4/branches/local_changes mom4
+
+Building MOM
+------------
+
+Pre-configured scripts for compiling MOM are included with most of the
+repositories. To use the scripts, type the following:
+
+.. code:: bash
+    
+    $ cd exp
+    $ qsub mom4p1_solo_compile.csh
+
+This will submit the ocean-only (or "solo") version of MOM to the queueing
+system. Compilation should require approximately 10 minutes, and will place an
+executable in the following directory path:
+
+.. code:: bash
+    
+    /short/${PROJECT}/${USER}/mom4/exec_vayu/mom4p1_solo/fms_mom4p1_solo.x
+
+Several build scripts are included with the repository:
+
+* ``mom4p1_solo_compile.csh``: Ocean-only MOM
+
+* ``mom4p1_coupled_compile.csh``: MOM coupled to GFDL's atmosphere, land, and
+  ice models
+
+* ``mom4p1_ebm_compile.csh``: MOM coupled to an atmospheric energy-balanced
+  model (EBM)
+
+* ``CM2.1p1_compile.csh``: CM2.1-configured GFDL coupled climate model
+
+To build these versions of MOM, submit them in the same manner as outlined
+above.
+
+Currently, only the solo and coupled scripts are configured for use on vayu.
+Please contact CMS if there is interest in using the other versions.
+
+Running MOM
+===========
+
+Running the sample experiments
+------------------------------
+
+Model Output Format
+===================
+
