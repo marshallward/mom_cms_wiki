@@ -1,0 +1,18 @@
+==================
+MOM4 configuration
+==================
+
+This page outlines basic configuration of MOM4 experiments.
+
+MOM4 Configuration Files
+========================
+
+MOM4 configuration is managed primarily through four files:
+
+* ``input.nml``: Principal configuration
+
+* ``diag_table``: Diagnostic output management
+
+* ``data_table``: Input and boundary condition data field management
+
+* ``field_table``: Initial condition and advection scheme configuration

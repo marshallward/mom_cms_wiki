@@ -1,0 +1,65 @@
+==========================
+Acquiring and building MOM
+==========================
+
+Acquiring the source code
+=========================
+
+The MOM source code can either be downloaded directly from GFDL or through
+local source code repositories at NCI. Due to licensing restrictions of other
+software on the local repository, users must be granted permission to access
+the local repositories. For access, contact climate_help@nf.nci.org.au.  
+
+To acquire the latest version of the source code, type the following:
+
+.. code:: bash
+
+    $ mkdir -p /short/${PROJECT}/${USER}/models     # Or some other directory 
+    $ cd /short/${PROJECT}/${USER}/models
+    $ svn co https://access-svn.nci.org.au/svn/mom4/branches/local_changes mom4
+
+where ``${PROJECT}`` is your default project group and ``${USER}`` is your
+username. This will download the latest version of the source code into a
+directory named ``mom4``.
+
+Building MOM
+============
+
+Pre-configured scripts for compiling MOM on vayu are included in most of the
+repositories. To use the scripts, type the following:
+
+.. code:: bash
+
+    # From the source code directory
+    $ cd exp
+    $ qsub mom4p1_solo_compile.csh
+
+This will submit the ocean-only (or solo) version of MOM to the queueing
+system. Compilation should require approximately 10 minutes, and will place an
+executable in the following directory path:
+
+.. code:: bash
+
+    ${mom_svn}/exec_vayu/mom4p1_solo/fms_mom4p1_solo.x
+
+where ``${mom_svn}`` is the path of the source code repository
+(``/short/${PROJECT}/${USER}/models/mom4`` in the previous example).
+
+Several build scripts are included:
+
+* ``mom4p1_solo_compile.csh``: Ocean-only MOM
+
+* ``mom4p1_coupled_compile.csh``: MOM coupled to GFDL's atmosphere, land, and
+  ice models
+
+* ``mom4p1_ebm_compile.csh``: MOM coupled to an atmospheric energy-balanced
+  model (EBM)
+
+* ``CM2.1p1_compile.csh``: CM2.1-configured GFDL coupled climate model
+
+To build these versions of MOM, submit them in the same manner as outlined
+above. The executable paths resemble the ``mom4p1_solo`` builds (with slightly
+different filenames).
+
+Currently, only the solo and coupled scripts are configured for use on vayu.
+Please contact CMS if there is interest in using the other versions.

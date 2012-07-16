@@ -1,0 +1,18 @@
+====
+Payu
+====
+
+Payu is a collection of python-based workflow scripts for ocean model
+simulations on the vayu computer cluster. The scripts provide a common
+framework for running several different ocean models, as well as a consistent
+directory structure for the model configuration and output.
+
+The following models are currently supported by payu:
+
+* MOM4: GFDL ocean climate model used in several CMIP studies
+
+* GOLD: GFDL isopycnal ocean model (under development)
+
+* MITgcm: Finite-volume ocean model supporting nonhydrostatic dynamics
+
+

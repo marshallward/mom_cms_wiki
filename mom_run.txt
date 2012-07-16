@@ -1,0 +1,164 @@
+=======================
+Running MOM experiments
+=======================
+
+Running an ocean simulation using MOM requires three steps:
+
+1. Designing an experiment, including its numerical grids and forcing fields
+
+2. Configuring MOM's numerical settings and physical parameterisations
+
+3. Executing MOM and generating numerical output
+
+This section focusses on the final step of model execution, as well as a
+cursory discussion of model configuration. It assumes that you have been
+provided with a pre-configured experiment, either from your supervisor or from
+one of the MOM4 examples.
+
+In general, model design and configuration is a complex process which can
+require a broad range of expertise. For more detailed discussions about
+experiment design, consult the MOM4 documentation and ocean modelling
+literature.
+
+Running MOM
+===========
+
+Before beginning, make sure that you have an experiment ready for MOM
+simulation, as well as a compiled MOM4 executable.
+
+This page outlines two methods for running MOM4:
+
+* Sample scripts provided by GFDL
+
+* Running MOM4 from the terminal shell
+
+Sample experiments
+------------------
+
+GFDL provides pre-configured scripts and experiments for testing purposes. Two
+sample experiments are included in the repository:
+
+* ``torus1``: Tracer advection test
+
+* ``box_channel1``: Idealised thermohaline sector
+
+The configuration files for each experiment are located in the ``work``
+subdirectory, but GFDL provides scripts to run these experiments that are kept
+in the ``expt`` subdirectory. To run a particular experiment, modify the
+following line in the ``mom4p1_solo_run.csh``:
+
+.. code:: bash
+
+    set name = torus1
+
+Replace ``torus1`` with the experiment in ``work`` that you wish to run.
+
+Once the script is ready, submit it to the job queue:
+
+.. code:: bash
+
+    qsub mom4p1_solo_run.csh
+
+When complete, the model output, along with a compressed tarball, will be
+stored in the following directories:
+
+.. code:: bash
+
+    /short/${PROJECT}/${USER}/mom4/work/${expt}
+    /short/${PROJECT}/${USER}/mom4/archive/mom4p1_solo/${expt}.output.tar.gz
+
+where ``${expt}`` is the name of your experiment (e.g. ``torus1``).
+
+If you wish to run a pre-configured MOM experiment using these scripts, then
+you can create a new directory in the ``work`` directory and point the script
+to this directory.
+
+Running MOM at command line
+---------------------------
+
+To create a custom experiment, one must first generate appropriate grid and
+configuration files, as well as any necessary data fields for forcing and
+initial conditions. Once the experiment has been created, the files must be
+placed in the appropriate directories, and the model is executed within the
+directory.
+
+Example directory paths for the configuration files, data fields, model
+executable, and experiment are listed below:
+
+.. code:: bash
+
+    $ short=/short/${PROJECT}/${USER}
+    $ expt=${short}/mom4/sample_expt
+    $ config=${HOME}/mom4/sample_config
+    $ data=${short}/sample_data
+    $ exec=${short}/models/mom4/exec_vayu/mom4p1_solo/fms_mom4p1_solo.x
+
+Your own paths will vary; substitute your own paths in the commands listed
+below.
+
+Assuming the pathnames above, submit the following commands to run MOM:
+
+.. code:: bash
+
+    # Create a directory to run your experiment
+    $ mkdir -p ${expt}
+
+    # Create INPUT and RESTART subdirectories
+    $ mkdir -p ${expt}/INPUT
+    $ mkdir -p ${expt}/RESTART
+
+    # Copy configuration files to the experiment directory:
+    $ cp ${config}/input.nml ${expt}
+    $ cp ${config}/diag_table ${expt}
+    $ cp ${config}/data_table ${expt}
+    $ cp ${config}/field_table ${expt}
+
+    # Finally, copy any data fields (forcings or initial fields) to INPUT:
+    $ cp ${data}/* ${expt}/INPUT
+
+If your forcing files are large, you may want to use symbolic links instead of
+file copies:
+
+.. code:: bash
+
+    $ ln -s ${data}/* ${expt}/INPUT
+
+Once the experiment is ready for MOM, run the experiment with the executable:
+
+.. code:: bash
+
+    $ cd ${expt}
+    $ ./${exec}
+
+As with most computational jobs on vayu, consider submitting your runs through
+the (PBS) job submission system. An example script (e.g. ``sample_run.sh``):
+
+.. code:: bash
+
+    #!/bin/bash
+    #PBS -q normal
+    #PBS -l walltime=1:00:00
+    #PBS -l vmem=4GB
+    #PBS -l ncpus=8
+    #PBS -N sample_expt
+    #PBS -joe
+    #PBS -wd
+    
+    ./${exec} 
+
+Submit your script in the usual manner:
+
+.. code:: bash
+
+    cd ${expt}
+    qsub sample_run.sh
+
+If the model runs without any errors, then output will appear in the same
+experiment directory ``${expt}``.
+
+payu: Python-based workflow scripts
+-----------------------------------
+
+Payu consists of a collection of python scripts used to manage several ocean
+model simulations, such as MOM4. Their use will be outlined in a separate
+section.

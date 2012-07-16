@@ -1,0 +1,11 @@
+#!/bin/bash
+
+RSTDOC=$1
+HTMLDOC=tmp.html~
+WIKIDOC=${RSTDOC%.*}_wiki.${RSTDOC##*.}
+
+rst2html ${RSTDOC} > ${HTMLDOC}
+pandoc -f html -t mediawiki -o ${WIKIDOC} ${HTMLDOC}
+rm ${HTMLDOC}
+python mw2wt.py ${WIKIDOC}
+mv ${WIKIDOC}~ ${WIKIDOC}

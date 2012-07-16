@@ -1,0 +1,50 @@
+===
+MOM
+===
+
+MOM (Modular Ocean Model) is an ocean climate model developed at GFDL, and is
+the ocean component of the ACCESS climate model system. The latest release of
+MOM is version 4.1 (or MOM4p1).
+
+Guides
+======
+
+* [[Introduction to the NCI computing environment]]
+
+* [[Acquiring and compiling MOM]]
+
+* [[Running MOM]]
+
+* [[MOM output format]]
+
+* [[Designing a MOM experiment]]
+
+External references
+===================
+
+* `GFDL Ocean Circulation Models`_: Summary of ocean modelling work at GFDL
+
+* `MOM4p1 User Guide`_: Brief summary of MOM4 usage
+
+* `Elements of MOM4p1`_: Physical and numerical documentation of MOM4 (PDF
+  document)
+
+* `GForge`_: GFDL source code repository
+
+* `Sample MOM4 Experiments`_: Includes configuration and data input fields, and
+  sample output (Configured for MOM4p1 December 2009)
+
+.. _`GFDL Ocean Circulation Models`:
+    http://www.gfdl.noaa.gov/ocean-model
+
+.. _`MOM4p1 User Guide`:
+    http://data1.gfdl.noaa.gov/~arl/pubrel/r/mom4p1/src/mom4p1/doc/mom4_manual.html
+
+.. _`Elements of MOM4p1`:
+    http://data1.gfdl.noaa.gov/~arl/pubrel/r/mom4p1/src/mom4p1/doc/guide4p1.pdf
+
+.. _`GForge`:
+    https://fms.gfdl.noaa.gov/gf/
+
+.. _`Sample MOM4 Experiments`:
+    ftp://ftp.gfdl.noaa.gov/perm/MOM4/mom4p1_pubrel_dec2009/exp/

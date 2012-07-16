@@ -13,14 +13,43 @@ f_old = open(wiki_fname, 'r')
 f_new = open(wiki_fname + '~', 'w')
 
 for line in f_old:
+    # Blank line detection (for code formatting)
+    if line == '\n':
+        prior_line = line
+        try:
+            line = f_old.next()
+        # Break for end-of-file exception
+        except StopIteration:
+            f_new.write(prior_line)
+            break
+    else:
+        prior_line = None
+    
+    #---------------
     # Fix monospace
     line = line.replace('<tt>', '{{')
     line = line.replace('</tt>', '}}')
     
+    #----------
     # Fix bold
     line = line.replace("'''", "**")
+     
+    #-----------
+    # Fix links
+    protocols = ['http', 'mailto', 'ftp']
+    link_patterns = ['\[' + s + '(.+?)\]' for s in protocols]
+    for pattern in link_patterns:
+        match = re.search(pattern, line)
+        if match:
+            old_link = match.group()
+            new_link = '[' + '|'.join(old_link.split(' ', 1)) + ']'
+            line = line.replace(old_link, new_link)
     
-    # Fix coding
+    #-----------------
+    # Fix code blocks
+    line = line.replace('<source>', '\n[[code]]')
+    line = line.replace('</source>', '\n[[code]]')
+    
     pattern = '<source lang="(.+?)">'
     match = re.search(pattern, line)
     if match:
@@ -29,17 +58,8 @@ for line in f_old:
         
         code_lang = lang.join(['[[code format="', '"]]\n'])
         line = line.replace(src_lang, code_lang)
-
-    line = line.replace('</source>', '\n[[code]]\n')
-    
-    # Fix links
-    link_patterns = ['\[http(.+?)\]', '\[mailto(.+?)\]']
-    for pattern in link_patterns:
-        match = re.search(pattern, line)
-        if match:
-            old_link = match.group()
-            new_link = '[' + '|'.join(old_link.split(' ', 1)) + ']'
-            line = line.replace(old_link, new_link)
+    elif prior_line:
+        f_new.write(prior_line)
     
     f_new.write(line)
 

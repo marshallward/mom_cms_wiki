@@ -1,0 +1,9 @@
+#!/bin/bash
+
+rm -rf wiki
+mkdir wiki
+rst_files=$(ls mom*.txt)
+for f in ${rst_files}; do
+    ./rst2wt $f
+done
+mv mom*_wiki.txt wiki/

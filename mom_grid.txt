@@ -1,0 +1,25 @@
+==================
+MOM Grid Generaton
+==================
+
+This page outlines the process for generating new grids for MOM4 experiments.
+Only grids based on the newer Mosaic system are presented here. If you wish to
+use the older grid generation tools, please consult GFDL documentation
+
+Mosaic grids
+============
+
+Horizontal grids
+----------------
+
+Vertical grids
+--------------
+
+Mosaic manifest file
+--------------------
+
+Topography
+----------
+
+Coupled grid generation
+-----------------------

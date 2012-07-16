@@ -1,0 +1,65 @@
+=============================================
+Introduction to the NCI computing environment
+=============================================
+
+Creating an NCI account
+=======================
+
+Most CoE users should expect to run MOM on the NCI computers, such as vayu. To
+request an account, visit the `New User Application`_ page at NCI.
+
+Once your account has been created, you may need to connect your username to a
+particular project. To do this, visit the `Project Connection Application`_
+page at NCI.
+
+You may need to contact your supervisor regarding the details of NCI access.
+
+To verify access to vayu, open a terminal program and attempt an SSH
+connection. (If you cannot locate a terminal program, quickly consult the next
+section). If your username is ``mxw157``, then type the following:
+
+.. code:: bash
+
+    # Replace mxw157 with your username
+    $ ssh mxw157@vayu.nci.org.au
+
+If your password is correct and login is successful, then your account is ready
+for use. To logout, type the following:
+
+.. code:: bash
+
+    $ exit
+
+.. _New User Application:
+    https://nf.nci.org.au/accounts/forms/user_registration.php
+
+.. _Project Connection Application:
+    https://nf.nci.org.au/accounts/forms/user_connection.php
+
+Working in the terminal shell
+=============================
+
+Most interaction with the NCI computing environment is done through
+command-line terminal emulators. On your computer, you will need to locate an
+appropriate terminal application. For some recommendations:
+
+* **OS X**: The default Terminal application is located in the
+  ``/Applications/Utilities`` folder.
+
+* **Windows**: PuTTY_ is a good standalone terminal application.
+
+* **Linux**: The default terminal in most distributions should be sufficient.
+
+For a more comprehensive list of terminals, consult the `Wikipedia Terminal
+Emulator Comparison`_ page.
+
+.. _PuTTY: http://www.chiark.greenend.org.uk/~sgtatham/putty/
+
+.. _Wikipedia Terminal Emulator Comparison:
+    http://en.wikipedia.org/wiki/Comparison_of_SSH_clients
+
+.. TODO: Add details on navigating the shell
+
+.. TODO: Text editors
+
+.. TODO: Directory structure explanation
