@@ -14,29 +14,13 @@ page at NCI.
 
 You may need to contact your supervisor regarding the details of NCI access.
 
-To verify access to vayu, open a terminal program and attempt an SSH
-connection. (If you cannot locate a terminal program, quickly consult the next
-section). If your username is ``mxw157``, then type the following:
-
-.. code:: bash
-
-    # Replace mxw157 with your username
-    $ ssh mxw157@vayu.nci.org.au
-
-If your password is correct and login is successful, then your account is ready
-for use. To logout, type the following:
-
-.. code:: bash
-
-    $ exit
-
 .. _New User Application:
     https://nf.nci.org.au/accounts/forms/user_registration.php
 
 .. _Project Connection Application:
     https://nf.nci.org.au/accounts/forms/user_connection.php
 
-Working in the terminal shell
+Acquiring a terminal emulator
 =============================
 
 Most interaction with the NCI computing environment is done through
@@ -58,8 +42,59 @@ Emulator Comparison`_ page.
 .. _Wikipedia Terminal Emulator Comparison:
     http://en.wikipedia.org/wiki/Comparison_of_SSH_clients
 
-.. TODO: Add details on navigating the shell
+Logging on to vayu
+==================
 
-.. TODO: Text editors
+To log in using ``ssh`` (or secure shell), simply type the username followed by
+vayu's domain address:
+
+.. code:: bash
+
+    $ ssh mxw157@vayu.nci.org.au
+
+Remember to replace ``mxw157`` with your account username.
+
+If you require window forwarding (such as for ``emacs`` or plotting software),
+use the ``-Y`` flag:
+
+.. code:: bash
+
+    $ ssh -Y mxw157@vayu.nci.org.au
+
+This flag enables encrypted window forwarding. If you are on a slow connection,
+then you may want to replace ``-Y`` with ``-X`` for unencrypted window
+forwarding.
+
+To log out of vayu, type the following:
+
+.. code:: bash
+
+    $ exit      # or logout
+
+Text Editors
+============
+
+Most users will need to modify various text files while logged in to the NCI
+machines. For this reason, it is worthwhile to familiarise yourself with a text
+editor. Some recommendations:
+
+* ``pico`` is a simple text editor which behaves similarly to many
+  graphical editors.
+
+* ``vim`` is a powerful terminal editor, although it also has an intimidating
+  learning curve. Typing ``vimtutor`` will open a beginner's tutorial.
+
+* ``emacs`` is another powerful editor (and also a difficult learning curve)
+  which includes a graphical user interface. You will need to log in using
+  window forwarding (``-Y``).
+
+To run each editor, type its name at the terminal command prompt, optionally
+followed by a filename:
+
+.. code:: bash
+
+    $ vim my_file.txt
+
+.. TODO: Add details on navigating the shell
 
 .. TODO: Directory structure explanation

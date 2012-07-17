@@ -1,13 +1,13 @@
-==================
-MOM4 configuration
-==================
+================
+Configuring MOM4
+================
 
 This page outlines basic configuration of MOM4 experiments.
 
 MOM4 Configuration Files
 ========================
 
-MOM4 configuration is managed primarily through four files:
+MOM4 configuration is managed primarily through four text files:
 
 * ``input.nml``: Principal configuration
 
@@ -16,3 +16,144 @@ MOM4 configuration is managed primarily through four files:
 * ``data_table``: Input and boundary condition data field management
 
 * ``field_table``: Initial condition and advection scheme configuration
+
+Basic Configuration
+===================
+
+Setting the simulation time
+---------------------------
+
+Simulation time (or integration time) is set in the ``input.nml`` namelist
+file, in either ``ocean_solo_nml`` (for ocean-only runs) or ``coupler_nml``
+(for coupled runs).
+
+Ocean-only (solo) configuration
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+An example ``ocean_solo_nml`` namelist record is shown below:
+
+.. code:: fortran
+
+     &ocean_solo_nml
+        date_init = 1980,1,1,0,0,0
+        calendar = 'julian'
+
+        months  = 0
+        days    = 2
+        hours   = 0
+        minutes = 0
+        seconds = 0
+
+        dt_cpld = 86400
+    /
+
+The major namelist fields are described below:
+
+* ``date_init``: Simulation start time (if no ``ocean_solo.res`` timestamp is
+  present, such as from a previous simulation, then this field is ignored)
+
+* ``calendar``: Simulation calendar type. Four calendars are supported:
+
+  * ``gregorian``: Modern calendar will full leap-year support
+
+  * ``julian``: 365-day calendar with 4-year leap years
+
+  * ``noleap``: 365-day calendar with no leap years
+
+  * ``thirty_day``: 30-day months (or 360 days per year)
+
+* ``months``, ``days``, etc.: Simulation (or integration) time
+
+* ``dt_cpld``: Timestep (in seconds) to external data fields (usually
+  atmospheric)
+
+Coupled configuration
+~~~~~~~~~~~~~~~~~~~~~
+
+An example ``coupler_nml`` record follows a similar structure:
+
+.. code:: fortran
+
+     &coupler_nml
+        current_date = 1980,1,1,0,0,0
+        calendar = 'noleap'
+        months = 12
+
+        do_atmos = .false.
+        do_land = .false.
+        do_ice = .true.
+        do_ocean = .true.
+
+        dt_cpld = 1800
+        dt_atmos = 1800
+    /
+
+Many of the fields are identical to the ``ocean_solo_nml`` fields. The new or
+modified fields are listed below:
+
+* ``current_date``: Simulation start time, similar to ``date_init`` in
+  ``ocean_solo_nml`` (in this case, the timestamp override file is named
+  ``coupler.res``)
+
+* ``do_atmos``, ``do_land``, etc.: Use to enable or disable submodel components
+
+* ``dt_atmos``: Atmospheric model timestep (in seconds), including its coupling
+  to land and ice (or the "fast" coupling timestep)
+
+* ``dt_cpld``: Ocean-atmosphere coupling (or the "slow" coupling timestep).
+  This must be a multiple of ``dt_atmos`` and ``dt_ocean``.
+
+Timestep configuration
+----------------------
+
+The predominant numerical parameter in model configuration is timestep size.
+MOM4 timestepping is configured in the ``ocean_model_nml`` namelist record. An
+example record is provided below:
+
+.. code:: fortran
+
+     &ocean_model_nml
+        dt_ocean = 10800
+        vertical_coordinate = 'zstar'
+        time_tendency = 'twolevel'
+        baroclinic_split = 1
+        surface_height_split = 1
+        barotropic_split = 60
+    /
+
+Description:
+
+* ``dt_ocean``: Ocean model timestep size (in seconds)
+
+* ``vertical_coordinate``: Vertical coordinate type, the most common options
+  are listed below:
+
+  * ``geopotential``: Geopotential (equivalent to depth in many cases)
+
+  * ``zstar``: Quasi-horizontal depth
+
+  * ``pressure``: Pressure-based vertical coordiante
+
+  * ``pstar``: Quasi-horizontal pressure
+
+* Timestep splitting settings:
+
+  * ``barotropic_split``: Split timestepping between the ocean free surface
+    (or barotropic) and internal (or baroclinic) flow. A barotropic timestep of
+    60 means that there are sixty free surface timesteps per model timesteps
+    (set by ``dt_ocean``).
+
+  * ``baroclinic_split``: Split between tracer (e.g. ``T, S``) and velocity
+    timesteps. This is typically set to 1.
+
+Advanced Configuration
+======================
+
+A typical ``input.nml`` file will usually contain a large number of namelist
+records, sometimes as many as 100 for fully coupled models. Much of the
+configuration settings are determined through experiment design, which is a
+nontrivial task and often a subject of ongoing research.
+
+This section is currently empty, but it exists to provide additional support
+for less frequent namelist records. It will expand in response to the needs of
+current users.

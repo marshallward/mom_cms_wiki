@@ -12,8 +12,19 @@ wiki_fname = sys.argv[1]
 f_old = open(wiki_fname, 'r')
 f_new = open(wiki_fname + '~', 'w')
 
+# Basic substitutions (mostly HTML to wikitext)
+subs = {'&amp;':        '&',
+        '&quot;':       '"',
+        "'''":          '**',   # Bold (emphasis)
+        '<tt>':         '{{',
+        '</tt>':        '}}',
+        '<source>':     '[[code]]\n',
+        '</source>':    '\n[[code]]'
+        }
+
 for line in f_old:
-    # Blank line detection (for code formatting)
+    #--------------------------------------------
+    # Blank line detection (for code blocks)
     if line == '\n':
         prior_line = line
         try:
@@ -25,15 +36,10 @@ for line in f_old:
     else:
         prior_line = None
     
-    #---------------
-    # Fix monospace
-    line = line.replace('<tt>', '{{')
-    line = line.replace('</tt>', '}}')
+    # Basic substitutions
+    for s in subs:
+        line = line.replace(s, subs[s])
     
-    #----------
-    # Fix bold
-    line = line.replace("'''", "**")
-     
     #-----------
     # Fix links
     protocols = ['http', 'mailto', 'ftp']
@@ -47,9 +53,6 @@ for line in f_old:
     
     #-----------------
     # Fix code blocks
-    line = line.replace('<source>', '\n[[code]]')
-    line = line.replace('</source>', '\n[[code]]')
-    
     pattern = '<source lang="(.+?)">'
     match = re.search(pattern, line)
     if match:

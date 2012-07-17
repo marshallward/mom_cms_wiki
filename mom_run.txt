@@ -12,8 +12,7 @@ Running an ocean simulation using MOM requires three steps:
 
 This section focusses on the final step of model execution, as well as a
 cursory discussion of model configuration. It assumes that you have been
-provided with a pre-configured experiment, either from your supervisor or from
-one of the MOM4 examples.
+provided with a pre-configured experiment, such as one of the MOM4 examples.
 
 In general, model design and configuration is a complex process which can
 require a broad range of expertise. For more detailed discussions about

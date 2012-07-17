@@ -15,12 +15,14 @@ Guides
 
 * [[Running MOM]]
 
+* [[Configuring MOM]]
+
 * [[MOM output format]]
 
 * [[Designing a MOM experiment]]
 
-External references
-===================
+External resources
+==================
 
 * `GFDL Ocean Circulation Models`_: Summary of ocean modelling work at GFDL
 
