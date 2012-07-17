@@ -17,7 +17,7 @@ Guides
 
 * [[Configuring MOM]]
 
-* [[MOM output format]]
+* [[MOM output diagnostics]]
 
 * [[Designing a MOM experiment]]
 
@@ -34,7 +34,7 @@ External resources
 * `GForge`_: GFDL source code repository
 
 * `Sample MOM4 Experiments`_: Includes configuration and data input fields, and
-  sample output (Configured for MOM4p1 December 2009)
+  sample output (Configured for the MOM4p1 December 2009 release)
 
 .. _`GFDL Ocean Circulation Models`:
     http://www.gfdl.noaa.gov/ocean-model

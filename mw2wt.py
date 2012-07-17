@@ -22,6 +22,7 @@ subs = {'&amp;':        '&',
         '</source>':    '\n[[code]]'
         }
 
+prior_line = None
 for line in f_old:
     #--------------------------------------------
     # Blank line detection (for code blocks)
@@ -33,9 +34,8 @@ for line in f_old:
         except StopIteration:
             f_new.write(prior_line)
             break
-    else:
-        prior_line = None
     
+    #---------------------
     # Basic substitutions
     for s in subs:
         line = line.replace(s, subs[s])
@@ -61,9 +61,15 @@ for line in f_old:
         
         code_lang = lang.join(['[[code format="', '"]]\n'])
         line = line.replace(src_lang, code_lang)
-    elif prior_line:
+    elif prior_line == '\n':
         f_new.write(prior_line)
     
+    #----------------------
+    # Add space to headers
+    if line.startswith('=') and prior_line != '\n' and prior_line != None:
+        f_new.write('\n')
+    
+    prior_line = line
     f_new.write(line)
 
 f_old.close()
