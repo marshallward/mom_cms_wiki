@@ -80,8 +80,8 @@ An example ``coupler_nml`` record follows a similar structure:
         months = 12
 
         do_atmos = .false.
-        do_land = .false.
-        do_ice = .true.
+        do_land  = .false.
+        do_ice   = .true.
         do_ocean = .true.
 
         dt_cpld = 1800
@@ -115,13 +115,10 @@ example record is provided below:
      &ocean_model_nml
         dt_ocean = 10800
         vertical_coordinate = 'zstar'
-        time_tendency = 'twolevel'
-        baroclinic_split = 1
-        surface_height_split = 1
         barotropic_split = 60
     /
 
-Description:
+Some typical timestep settings are as follows:
 
 * ``dt_ocean``: Ocean model timestep size (in seconds)
 
@@ -136,15 +133,10 @@ Description:
 
   * ``pstar``: Quasi-horizontal pressure
 
-* Timestep splitting settings:
-
-  * ``barotropic_split``: Split timestepping between the ocean free surface
-    (or barotropic) and internal (or baroclinic) flow. A barotropic timestep of
-    60 means that there are sixty free surface timesteps per model timesteps
-    (set by ``dt_ocean``).
-
-  * ``baroclinic_split``: Split between tracer (e.g. ``T, S``) and velocity
-    timesteps. This is typically set to 1.
+* ``barotropic_split``: Split timestepping between the ocean free surface (or
+  barotropic) and internal (or baroclinic) flow. A barotropic timestep of 60
+  means that there are sixty free surface timesteps per model timesteps (set by
+  ``dt_ocean``).
 
 Advanced Configuration
 ======================

@@ -15,4 +15,159 @@ The following models are currently supported by payu:
 
 * MITgcm: Finite-volume ocean model supporting nonhydrostatic dynamics
 
+Payu setup
+==========
 
+Enabling python
+---------------
+
+To use payu, you must first ensure that an up-to-date version of python is
+available. Payu has most recently been tested against Python 2.7.2. To enable
+python on vayu, type the following:
+
+.. code:: bash
+
+    $ module load python/2.7.2
+
+Payu should work with python 2.6 (the default module on vayu), but it is
+recommended that you use the most recent version.
+
+Next, you must configure your python path. Type the following:
+
+.. code:: bash
+
+    $ echo ${PYTHONPATH}
+
+If a blank line appears, then your python path is empty. If a path name
+appears, then you have a pre-configured python path and can skip ahead to the
+next subsection.
+
+Configuring your python path depends on your current shell. Type the following:
+
+.. code:: bash
+
+    $ echo $0
+
+If this returns ``tcsh`` then you are used the C shell. Type the following to
+configure the python path:
+
+.. code:: bash
+
+    $ setenv PYTHONPATH ${HOME}/python    # Or some other path
+
+You may also want to copy this line into your ``${HOME}/.login`` file.
+
+If ``echo $0`` returns ``bash``, then you are using the Bash shell. Type the
+following:
+
+.. code:: bash
+
+    $ export PYTHONPATH=${HOME}/python    # Or some other path
+
+You may also want to copy this line into your ``${HOME}/.profile`` file.
+
+Acquiring payu
+--------------
+
+To obtain a copy of payu, use ``git`` to download a copy to an accessible
+directory on vayu. Assuming that you python path has been configured, type the
+following:
+
+.. code:: bash
+
+    
+    $ mkdir -p ${PYTHONPATH}      # In case your PYTHONPATH does not exist
+    $ git clone https://github.com/marshallward/payu.git ${PYTHONPATH}/payu
+
+Confirm that payu is on your system by importing it:
+
+.. code:: bash
+
+    $ python        # Start a python shell
+    > import payu
+
+If there are no errors, then payu is ready for use on your account.
+
+Configuring payu
+----------------
+
+Currently, payu requires some manual configuration. To use payu, you must
+create a directory containing model executables, forcing input fields,
+and experiment output. Usually, the most reasonable place is in the ``/short``
+directory.
+
+As an example, consider a ``mom4`` experiment. First create the directory:
+
+.. code:: bash
+
+    $ mkdir -p /short/${PROJECT}/${USER}/mom4
+    $ cd /short/${PROJECT}/${USER}/mom4
+
+Next, create a ``bin`` subdirectory and copy (or link) the model executable
+into the directory:
+
+.. code:: bash
+
+    $ mkdir bin
+    $ cp ${exec_path} bin/
+
+where ``${exec_path}`` is the path to your executable.
+
+Finally, create a ``forcing`` directory, which contains data forcing files for
+each experiment:
+
+.. code:: bash
+
+    $ mkdir forcing
+
+For now, leave this direcotry empty.
+
+Using Payu
+==========
+
+First, create a local directory for your experiment. For example, if you are
+running a MOM4 ``torus`` experiment, you can type the following:
+
+.. code:: bash
+
+    $ cd ~
+    $ mkdir -p mom4/torus
+
+This directory will contain your model configuration files and job submission
+scripts.
+
+Create a small python script (assumed to be called ``model.py``) containing the
+following information:
+
+.. code:: python
+
+    #!/usr/bin/env python
+    #PBS -q normal
+    #PBS -P x52
+    #PBS -l walltime=0:15:00
+    #PBS -l ncpus=80
+    #PBS -l vmem=40GB
+    #PBS -N sector
+    #PBS -wd
+    #PBS -joe
+    
+    from payu import mom4
+    
+    expt = mom4(forcing='torus1',
+                exe='mom4p1_solo')
+    
+    expt.setup()
+    expt.run()
+    expt.archive()
+
+The components of the scripts are as follows:
+
+* PBS directives indicating the resource requirements (memory, CPUs, etc.)
+
+* Importing the namespace of the payu model type (either ``mom4``, ``gold``, or
+  ``mitgcm``)
+
+* Creating an instance of the model, ``expt``, and directing it to the forcing
+  and executable paths
+
+* Setting up the model, running it, and archiving the results

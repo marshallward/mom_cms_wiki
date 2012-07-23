@@ -2,8 +2,8 @@
 
 rm -rf wiki
 mkdir wiki
-rst_files=$(ls mom*.txt)
+rst_files=$(ls *.txt)
 for f in ${rst_files}; do
     ./rst2wt $f
 done
-mv mom*_wiki.txt wiki/
+mv *_wiki.txt wiki/

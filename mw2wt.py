@@ -15,6 +15,8 @@ f_new = open(wiki_fname + '~', 'w')
 # Basic substitutions (mostly HTML to wikitext)
 subs = {'&amp;':        '&',
         '&quot;':       '"',
+        '&lt;':         '<',
+        '&gt;':         '>',
         "'''":          '**',   # Bold (emphasis)
         '<tt>':         '{{',
         '</tt>':        '}}',

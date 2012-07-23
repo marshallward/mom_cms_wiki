@@ -2,4 +2,89 @@
 MOM output diagnostics
 ======================
 
+MOM output is managed through the FMS diagnostics manager, and configured
+using the ``diag_table`` file. This page describes the format of ``diag_table``
+records and how to manage output diagnostic in MOM.
 
+diag_table
+==========
+
+``diag_table`` configuration files contain two types of records:
+
+* Files: NetCDF output files containing MOM4 output
+
+* Fields: Individual data fields (such as velocity or temperature) to be saved.
+
+Output file specification
+-------------------------
+
+``diag_table`` files begin with output file records. An example output file is
+shown below:
+
+.. code:: fortran
+
+    "ocean_snap", 5, "days", 1, "days", "Time"
+
+Each field is discussed below (in order of appearance)
+
+* ``"ocean_snap"``: The filename of a target netCDF output file. A ``.nc``
+  extension will be appended to the filename.
+
+* ``5, "days"``: The output frequency for variables in this file, followed by
+  units. Standard calendar units can be used (days, hours, etc.).
+
+* ``1, "days"``: Output time axis unit of measurement (with units).
+
+* ``"Time"``: Time axis variable name in the netCDF file.
+
+Output frequency and other time-related information is associated with
+individual files. For this reason, variables with similar output rates should
+generally be grouped together in the same file.
+
+Field specification
+-------------------
+
+Example field record:
+
+.. code:: fortran
+
+    "ocean_model", "u", "u", "ocean_snap", "all", .false., "none", 2
+
+* ``"ocean_model"``: MOM4 module containing the diagnostic variable. This is
+  typically attributed to a particular submodel, such as ``"ocean_model"`` or
+  ``"ice_model"``.
+
+* ``"u", "u"``: The MOM4 registered variable name, and the output netCDF
+  variable name, respectively. The first must match the variable name in the
+  MOM4 source code, but the second can be renamed by the user.
+
+* ``"ocean_snap"``: The output file (defined in the ``diag_table`` file record)
+  which will store this variable.
+
+* ``"all"``: The sampling rate of the variable. ``"all"`` means that the
+  variable is sampled for every value on the time axis (as specified in the
+  file record).
+
+* ``.false.``: Time averaging between output times. ``.true.`` saves the
+  time-averaged values between time sampling rates, while ``.false.`` returns
+  snapshots of the fields at each point on the time axis.
+
+* ``"none"``: Optional arguments, usually defined in MOM4. ``"none"`` denotes
+  no optional arguments.
+
+* ``2``: Output data type. Four formats are supported:
+
+  * ``1``: Double-precision (64-bit) floating point
+
+  * ``2``: Single-precision (32-bit) floating point
+
+  * ``4``: 16-bit integer packed variables (typically used for long-term
+    archival)
+
+  * ``8``: 8-bit integer-packed variables (untested)
+
+Creating new variables
+======================
+
+To create new variables for output not included in the default version requires
+a modification of the MOM4 source code.
