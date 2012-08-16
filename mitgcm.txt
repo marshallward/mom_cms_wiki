@@ -1,0 +1,62 @@
+==============
+MITgcm on vayu
+==============
+
+MITgcm is a numerical climate model developed for atmosphere and ocean
+circulation research. MITgcm is not an ACCESS submodel, but it is a popular
+ocean model among the CoE academic staff and CMS provides limited support for
+running it on the NCI computers.
+
+Acquring MITgcm
+===============
+
+The latest version of MITgcm is available from their public CVS repository. To
+download the source code, type the following:
+
+.. code:: bash
+    
+    cvs -d :pserver:cvsanon@mitgcm.org:/u/gcmpack co -P MITgcm
+
+This will place the code in a local folder named ``MITgcm``.
+
+*The complete source requires about 300 MiB of storage, so you may want to keep
+this in ``/short`` or a shared folder such as ``/projects``.*
+
+Building MITgcm
+===============
+
+Once you have a copy of the MITgcm source code, you must build an executable.
+A common method is to create a a directory (usually named ``mitgcm``) and two
+subdirectories, one for the compiled code (``build``) and one for user-defined
+source code (``code``). You will also need to acquire an "opt" file for vayu.
+
+.. Include link to opt file (and how to manage it)
+
+For example, type the following:
+
+.. code:: bash
+    
+    cd /short/${PROJECT}/${USER}
+    mkdir mitgcm                    # Or any other directory
+    cd mitgcm
+    mkdir build
+    mkdir code
+
+The ``code`` folder contains any local code required for compilation, such as
+``CPP_OPTIONS.h`` or ``SIZE.h``. The ``build`` folder contains the compiled
+code and executable.
+
+To build MITgcm, use the ``genmake2`` tool. If ``${CODEBASE}`` points to your
+source code repository, then type the following:
+
+.. code:: bash
+    
+    cd build
+    ${CODEBASE}/tools/genmake2 \
+        -mods=../code \
+        -rootdir=${MITgcm} \
+        -of=../linux_ia64_ifort+mpi_vayu_anu
+    make depend
+    make -j 8
+
+
