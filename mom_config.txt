@@ -146,6 +146,32 @@ records, sometimes as many as 100 for fully coupled models. Much of the
 configuration settings are determined through experiment design, which is a
 nontrivial task and often a subject of ongoing research.
 
-This section is currently empty, but it exists to provide additional support
-for less frequent namelist records. It will expand in response to the needs of
-current users.
+data_table
+----------
+
+The ``data_table`` file is used to supply a MOM experiment with external data
+forcing fields, such as surface winds or radiative heating.
+
+Example ``data_table`` record:
+
+.. code:: fortran
+
+    "OCN", "u_flux", "taux", "INPUT/stress.nc", .true., 1.0
+
+* ``"OCN"``: Identifies the class of the field. It contains one of the
+  following values: ``ATM``, ``OCN``, ``LND``, ``ICE``
+
+* ``"u_flux"``: The field variable name as defined in MOM4.
+
+* ``"taux"``: The field variable name as defined in the netCDF provided by the
+  user.
+
+* ``"INPUT/stress.nc"``: The path (including filename) for the netCDF file
+  containing the forcing field. Local paths can be used.
+
+* ``.true.``: Indicates whether or not the field is on the the ocean model
+  grid. A value of ``.false.`` indicates that it does not match the model grid
+  and requires interpolation (as computed by MOM).
+
+* ``1.0``: A rescaling factor applied to the field. A value of ``1.0``
+  indicates no rescaling, while a value of ``0.`` will set all values to zero.
