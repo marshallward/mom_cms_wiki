@@ -152,6 +152,9 @@ data_table
 The ``data_table`` file is used to supply a MOM experiment with external data
 forcing fields, such as surface winds or radiative heating.
 
+*Note that MOM usually expects external fields to be in netCDF format, and that
+the grid variables must be formatted in a particular manner.*
+
 Example ``data_table`` record:
 
 .. code:: fortran
