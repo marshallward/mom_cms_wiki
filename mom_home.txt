@@ -24,6 +24,18 @@ Guides
 External resources
 ==================
 
+These sites provide the most up-to-date information on MOM development
+
+* `MOM Development Lab`_: Home page for MOM development, hosted and maintained
+  by `Breakaway Labs`_
+
+* `MOM Users Mailing List`_: Hosted by Google Groups
+
+* `MOM Sourcecode Repository`_: Hosted by github
+
+The sites listed below are less active, but contain useful information for
+running MOM5:
+
 * `GFDL Ocean Circulation Models`_: Summary of ocean modelling work at GFDL
 
 * `MOM4p1 User Guide`_: Brief summary of MOM4 usage
@@ -36,6 +48,18 @@ External resources
 * `Sample MOM4 Experiments`_: Includes configuration and data input fields, and
   sample output (Configured for the MOM4p1 December 2009 release)
 
+.. _`MOM Development Lab`:
+    http://www.mom-ocean.org
+
+.. _`Breakaway Labs`:
+    http://www.breakawaylabs.com.au
+
+.. _`MOM Users Mailing List`:
+    https://groups.google.com/forum/#!forum/mom-users
+
+.. _`MOM Sourcecode Repository`:
+    https://github.com/BreakawayLabs/mom
+
 .. _`GFDL Ocean Circulation Models`:
     http://www.gfdl.noaa.gov/ocean-model
 
@@ -46,7 +70,7 @@ External resources
     http://data1.gfdl.noaa.gov/~arl/pubrel/r/mom4p1/src/mom4p1/doc/guide4p1.pdf
 
 .. _`GForge`:
-    https://fms.gfdl.noaa.gov/gf/
+    https://fms.gfdl.noaa.gov/gf
 
 .. _`Sample MOM4 Experiments`:
     ftp://ftp.gfdl.noaa.gov/perm/MOM4/mom4p1_pubrel_dec2009/exp/

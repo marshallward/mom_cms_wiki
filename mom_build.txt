@@ -5,10 +5,13 @@ Acquiring and building MOM
 Acquiring the source code
 =========================
 
-The MOM source code can either be downloaded directly from GFDL or through
-local source code repositories at NCI. Due to licensing restrictions of other
-software on the local repository, users must be granted permission to access
-the local repositories. For access, contact climate_help@nf.nci.org.au.  
+The MOM source code can either be downloaded directly from the main sourcecode
+repository or through local repositories at NCI. Due to licensing restrictions
+of other software on the NCI repository, users must be granted permission to
+access the local repositories.
+
+This document shows how to access the main MOM development repository. If you
+need access to the local NCI repositories, contact climate_help@nf.nci.org.au.
 
 To acquire the latest version of the source code, type the following:
 
@@ -16,11 +19,11 @@ To acquire the latest version of the source code, type the following:
 
     $ mkdir -p /short/${PROJECT}/${USER}/models     # Or some other directory 
     $ cd /short/${PROJECT}/${USER}/models
-    $ svn co https://access-svn.nci.org.au/svn/mom4/branches/local_changes mom4
+    $ git clone git://github.com/BreakawayLabs/mom.git
 
 where ``${PROJECT}`` is your default project group and ``${USER}`` is your
 username. This will download the latest version of the source code into a
-directory named ``mom4``.
+directory named ``mom``.
 
 Building MOM
 ============

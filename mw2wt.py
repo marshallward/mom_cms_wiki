@@ -45,6 +45,7 @@ for line in f_old:
     
     #-----------
     # Fix links
+    # TODO: Only seems to catch one link per line
     protocols = ['http', 'mailto', 'ftp']
     link_patterns = ['\[' + s + '(.+?)\]' for s in protocols]
     for pattern in link_patterns:

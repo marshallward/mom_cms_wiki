@@ -22,7 +22,7 @@ Enabling python
 ---------------
 
 To use payu, you must first ensure that an up-to-date version of python is
-available. Payu has most recently been tested against Python 2.7.2. To enable
+available. Payu has most recently been tested against Python 2.7.3. To enable
 python on vayu, type the following:
 
 .. code:: bash
@@ -122,7 +122,7 @@ each experiment:
 
     $ mkdir forcing
 
-For now, leave this direcotry empty.
+For now, leave this directory empty.
 
 Using Payu
 ==========
