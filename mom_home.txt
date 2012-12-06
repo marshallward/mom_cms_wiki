@@ -4,7 +4,7 @@ MOM
 
 MOM (Modular Ocean Model) is an ocean climate model developed at GFDL, and is
 the ocean component of the ACCESS climate model system. The latest release of
-MOM is version 4.1 (or MOM4p1).
+MOM is version 5.0.0.
 
 Guides
 ======
@@ -27,7 +27,7 @@ External resources
 These sites provide the most up-to-date information on MOM development
 
 * `MOM Development Lab`_: Home page for MOM development, hosted and maintained
-  by `Breakaway Labs`_
+  by Breakaway Labs
 
 * `MOM Users Mailing List`_: Hosted by Google Groups
 

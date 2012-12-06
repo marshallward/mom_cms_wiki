@@ -45,8 +45,8 @@ Emulator Comparison`_ page.
 Logging on to vayu
 ==================
 
-To log in using ``ssh`` (or secure shell), simply type the username followed by
-vayu's domain address:
+To log in using ``ssh`` (or secure shell), type the username followed by vayu's
+domain address:
 
 .. code:: bash
 
