@@ -6,9 +6,7 @@ Acquiring the source code
 =========================
 
 The MOM source code can either be downloaded directly from the main sourcecode
-repository or through local repositories at NCI. Due to licensing restrictions
-of other software on the NCI repository, users must be granted permission to
-access the local repositories.
+repository or through local repositories at NCI.
 
 To acquire the CMS-supported version of the source code, type the following:
 
