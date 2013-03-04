@@ -1,0 +1,79 @@
+=================
+ACCESS-O (AusCOM)
+=================
+ACCESS-O (or AusCOM) is the ocean-ice implementation of the ACCESS climate
+model. It consists of the ocean (MOM) and ice (CICE) components coupled through
+OASIS and a data-driven atmospheric model (MATM), primarily driven by CORE
+atmospheric forcing.
+
+This document provides basic instructions for building and running standard
+CORE-forced experiments.
+
+*Note: These instructions assume that the user has access to the v45 project.
+Contact CMS if you do not belong to this project.*
+
+
+Installing AusCOM
+=================
+First locate an appropriate directory from where you can run AusCOM (usually
+``/short``) and create a directory to hold your source code, e.g.:
+
+.. code:: bash
+
+   mkdir -p /short/v45/${USER}/projects     # Or any directory
+
+where ``${USER}`` is your username.
+
+*Note: Do not use ``/short/v45/${USER}/auscom``, since model output is stored
+in this directory.*
+
+Next, clone a copy of the repository:
+
+.. code:: bash
+
+   cd /short/v45/${USER}/projects
+   git clone http://github.com/coecms/auscom.git
+
+Once this complete, run the build script:
+
+.. code:: bash
+
+   cd auscom
+   ./build_auscom.sh
+
+A full build of all AusCOM components will usually take about an hour.
+
+Once installation is complete, run the ``link_input.sh`` script to create
+symbolic links to the input forcing fields:
+
+.. code:: bash
+
+   ./link_input.sh
+
+The original copies of these files are stored in ``/g/data/v45/auscom``. If you
+want to modify the forcing fields and configuration files, then you will need
+to create new symbolic links to your own directories. *Contact CMS if you
+require any assistance.*
+   
+You should now be ready to submit an AusCOM experiment.
+
+However, if you ever need to delete the executables and rebuild AusCOM, there
+is a script named ``clean_auscom.sh`` script which will delete any compiled
+binaries:
+
+.. code:: bash
+
+   ./clean_auscom.sh
+
+
+Running AusCOM
+==============
+The default experiment ``cnyf2-sw1`` is located with the repository. To run the
+experiment, move to its directory and run the provided script:
+
+.. code:: bash
+
+   cd exp/cnyf2-sw1
+   qsub run_auscom.sh
+
+This will run for one model year, and will take approximately 3 hours.
