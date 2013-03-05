@@ -54,7 +54,7 @@ The original copies of these files are stored in ``/g/data/v45/auscom``. If you
 want to modify the forcing fields and configuration files, then you will need
 to create new symbolic links to your own directories. *Contact CMS if you
 require any assistance.*
-   
+
 You should now be ready to submit an AusCOM experiment.
 
 However, if you ever need to delete the executables and rebuild AusCOM, there
@@ -77,3 +77,60 @@ experiment, move to its directory and run the provided script:
    qsub run_auscom.sh
 
 This will run for one model year, and will take approximately 3 hours.
+
+Model output can be accessed in the ``output/cnyf2-sw1/history`` directory.
+
+*This is a symbolic link to the actual data, located at
+/short/v45/${USER}/auscom/OUTPUT*
+
+
+Configuring AusCOM
+==================
+AusCOM is configured to run a series of self-resubmitting one-year simulations.
+
+The total duration is set within the ``run_auscom.sh`` script. In this part of
+this script (line 135):
+
+.. code:: bash
+
+   # Initial and final date of the experiment
+   if [[ $DEBUG = "yes" ]]; then
+       iniyear=1;  finalyear=1;        typeset -Z4 iniyear  finalyear
+       inimonth=1; finalmonth=1;       typeset -Z2 inimonth finalmonth
+       iniday=1;   finalday=4;         typeset -Z2 iniday   finalday
+   else
+       iniyear=1;  finalyear=5;        typeset -Z4 iniyear  finalyear
+       inimonth=1; finalmonth=12;      typeset -Z2 inimonth finalmonth
+       iniday=1;   finalday=31;        typeset -Z2 iniday   finalday
+   fi
+
+Under the ``else`` block (non-debug mode), replace ``finalyear`` with the
+numbers of years that you want to run. (Set as five years in this example).
+
+To change the duration of a single run, locate this code block (line 146):
+
+.. code:: bash
+
+   # Duration of this run (maybe the most often visited place for test/short runs):
+   if [[ $DEBUG = "yes" ]]; then
+       nyear=0         # number of years (ALWAYS 0 ! change nmonth etc...)
+       nmonth=0        # number of months
+       nday=1          # number of days
+   else
+       nyear=0         # number of years (ALWAYS 0 ! change nmonth etc...)
+       nmonth=12       # number of months
+       nday=0          # number of days
+   fi
+
+and replace ``nmonth`` and ``ndays`` of the ``else`` block with the desired
+duration.
+
+Standard PBS configuration also applies to the script header (beginning on line
+35 of ``run_auscom.sh``). Most have been pre-configured for the standard
+one-year experiment, but users may need to change the following:
+
+* ``#PBS -P v45``: Deduct CPU hours from project ``v45``
+* ``#PBS -W group_list=v45``: New files belong to the ``v45`` group
+* ``#PBS -l walltime=4:00:00``: Submit a four-hour job
+
+If you need further information about model configuration, contact CMS.
