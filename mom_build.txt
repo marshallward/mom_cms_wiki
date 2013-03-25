@@ -2,9 +2,9 @@
 Acquiring and building MOM
 ==========================
 
+
 Acquiring the source code
 =========================
-
 The MOM source code can either be downloaded directly from the main sourcecode
 repository or through local repositories at NCI.
 
@@ -20,9 +20,23 @@ where ``${PROJECT}`` is your default project group and ``${USER}`` is your
 username. This will download the latest version of the source code into a
 directory named ``mom``.
 
+The default checkout usually points to an early development version of MOM. If
+you want to check out an official release (currently version 5.0.2), then
+select a tag from the following:
+
+.. code:: bash
+
+    $ git tag
+
+and create a new branch from this tag (such as ``v502``):
+
+.. code:: bash
+
+    $ git checkout -b v502 5.0.2
+
+
 Building MOM
 ============
-
 A pre-configured script for compiling MOM on vayu are included in the CMS
 github repository. To use the script, type the following:
 
@@ -42,10 +56,10 @@ executable in the following directory path:
 relative to ``/short/${PROJECT}/${USER}/models`` if you followed the previous
 instructions.
 
+
 Versions of MOM
 ===============
-
-The build script ``MOM_compile.chs`` has been pre-configured to build the
+The build script ``MOM_compile.csh`` has been pre-configured to build the
 coupled ocean-ice version of MOM. The script can also be modified to build
 other versions of MOM:
 
