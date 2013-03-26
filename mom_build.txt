@@ -12,9 +12,9 @@ To acquire the CMS-supported version of the source code, type the following:
 
 .. code:: bash
 
-    $ mkdir -p /short/${PROJECT}/${USER}/models     # Or some other directory 
-    $ cd /short/${PROJECT}/${USER}/models
-    $ git clone git://github.com/coecms/mom.git
+   $ mkdir -p /short/${PROJECT}/${USER}/projects   # Or some other directory
+   $ cd /short/${PROJECT}/${USER}/projects
+   $ git clone git://github.com/coecms/mom.git
 
 where ``${PROJECT}`` is your default project group and ``${USER}`` is your
 username. This will download the latest version of the source code into a
@@ -26,13 +26,13 @@ select a tag from the following:
 
 .. code:: bash
 
-    $ git tag
+   $ git tag
 
 and create a new branch from this tag (such as ``v502``):
 
 .. code:: bash
 
-    $ git checkout -b v502 5.0.2
+   $ git checkout -b v502 5.0.2
 
 
 Building MOM
@@ -42,16 +42,16 @@ github repository. To use the script, type the following:
 
 .. code:: bash
     
-    # From the source code directory
-    $ cd mom/exp
-    $ qsub MOM_compile.csh
+   # From the source code directory
+   $ cd mom/exp
+   $ qsub MOM_compile.csh
 
 Compilation should require approximately 10 minutes, and will place an
 executable in the following directory path:
 
 .. code:: bash
 
-    mom/exec/vayu/fms_MOM_SIS.x
+   mom/exec/vayu/fms_MOM_SIS.x
 
 relative to ``/short/${PROJECT}/${USER}/models`` if you followed the previous
 instructions.
